@@ -2,13 +2,6 @@
 
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-const cartButton = document.getElementById("cartButton");
-const cartPanel = document.getElementById("cartPanel");
-const closeCart = document.getElementById("closeCart");
-
-const cartItems = document.getElementById("cartItems");
-const cartTotal = document.getElementById("cartTotal");
-const cartCount = document.getElementById("cartCount");
 
 function saveCart() {
     localStorage.setItem("cart", JSON.stringify(cart));
@@ -48,7 +41,13 @@ function renderCart() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+const cartButton = document.getElementById("cartButton");
+const cartPanel = document.getElementById("cartPanel");
+const closeCart = document.getElementById("closeCart");
 
+const cartItems = document.getElementById("cartItems");
+const cartTotal = document.getElementById("cartTotal");
+const cartCount = document.getElementById("cartCount");
     renderCart();
 
     document.querySelectorAll(".add-cart").forEach(button => {
