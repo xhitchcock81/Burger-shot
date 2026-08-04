@@ -33,8 +33,64 @@ if(cart.length===0){
 
 }
 
-document.getElementById("placeOrder").onclick=()=>{
+document.getElementById("placeOrder").onclick = async () => {
 
-    alert("Next step: Send order to Discord!");
+    const name = document.getElementById("customerName").value;
+    const discord = document.getElementById("discordName").value;
+    const orderType = document.getElementById("orderType").value;
+    const notes = document.getElementById("notes").value;
 
+    let items = "";
+
+    cart.forEach(item => {
+        items += `• ${item.name} x${item.quantity}\n`;
+    });
+
+    const data = {
+        username: "Burger Shot Orders",
+        embeds: [{
+            title: "🍔 NEW BURGER SHOT ORDER",
+            color: 16760576,
+            fields: [
+                {
+                    name: "👤 Customer",
+                    value: name || "Unknown"
+                },
+                {
+                    name: "💬 Discord",
+                    value: discord || "Not Provided"
+                },
+                {
+                    name: "🚗 Order Type",
+                    value: orderType
+                },
+                {
+                    name: "🍔 Items",
+                    value: items
+                },
+                {
+                    name: "💰 Total",
+                    value: `$${total}`
+                },
+                {
+                    name: "📝 Notes",
+                    value: notes || "None"
+                }
+            ]
+        }]
+    };
+
+    await fetch("PASTE YOUR NEW WEBHOOK URL HERE", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+    });
+
+    localStorage.removeItem("cart");
+
+    alert("Order Sent!");
+
+    window.location.href = "index.html";
 };
