@@ -18,6 +18,9 @@ document.addEventListener("DOMContentLoaded", () => {
             localStorage.setItem("cart", JSON.stringify(cart));
 
             alert(`${item.name} added to your cart!`);
+
+            console.log(cart);
+
         });
 
     });
