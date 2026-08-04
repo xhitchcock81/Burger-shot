@@ -92,5 +92,5 @@ document.getElementById("placeOrder").onclick = async () => {
 
     alert("Order Sent!");
 
-    window.location.href = "index.html";
+    window.location.href="success.html";
 };
