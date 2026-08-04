@@ -1,12 +1,19 @@
+// Burger Shot Checkout
+
 const cart = JSON.parse(localStorage.getItem("cart")) || [];
 
 const summary = document.getElementById("orderSummary");
 
 let total = 0;
 
+// Build Order Summary
 if (cart.length === 0) {
 
-    summary.innerHTML = "<p>Your cart is empty.</p>";
+    summary.innerHTML = `
+        <div class="alert alert-warning">
+            Your cart is empty.
+        </div>
+    `;
 
 } else {
 
@@ -17,29 +24,42 @@ if (cart.length === 0) {
         total += item.price * item.quantity;
 
         summary.innerHTML += `
-            <p>
-                ${item.name} x${item.quantity}
-                - $${item.price * item.quantity}
-            </p>
+            <div class="d-flex justify-content-between border-bottom py-2">
+                <span>${item.name} x${item.quantity}</span>
+                <strong>$${item.price * item.quantity}</strong>
+            </div>
         `;
 
     });
 
     summary.innerHTML += `
-        <hr>
-        <h4>Total: $${total}</h4>
+        <div class="d-flex justify-content-between mt-3">
+            <h4>Total</h4>
+            <h4>$${total}</h4>
+        </div>
     `;
 
 }
 
-document.getElementById("placeOrder").onclick = async () => {
+// Place Order
+document.getElementById("placeOrder").addEventListener("click", async () => {
+
+    if (cart.length === 0) {
+        alert("Your cart is empty.");
+        return;
+    }
+
+    const name = document.getElementById("customerName").value.trim();
+    const discord = document.getElementById("discordName").value.trim();
+    const orderType = document.getElementById("orderType").value;
+    const notes = document.getElementById("notes").value.trim();
+
+    if (!name || !discord) {
+        alert("Please enter your RP Name and Discord Username.");
+        return;
+    }
 
     const orderNumber = "BS-" + Date.now().toString().slice(-6);
-
-    const name = document.getElementById("customerName").value;
-    const discord = document.getElementById("discordName").value;
-    const orderType = document.getElementById("orderType").value;
-    const notes = document.getElementById("notes").value;
 
     let items = "";
 
@@ -61,12 +81,12 @@ document.getElementById("placeOrder").onclick = async () => {
                 },
                 {
                     name: "👤 Customer",
-                    value: name || "Unknown",
+                    value: name,
                     inline: true
                 },
                 {
                     name: "💬 Discord",
-                    value: discord || "Not Provided",
+                    value: discord,
                     inline: true
                 },
                 {
@@ -76,7 +96,7 @@ document.getElementById("placeOrder").onclick = async () => {
                 },
                 {
                     name: "🍔 Items",
-                    value: items || "No items"
+                    value: items
                 },
                 {
                     name: "💰 Total",
@@ -95,36 +115,45 @@ document.getElementById("placeOrder").onclick = async () => {
         }]
     };
 
-    // REPLACE THIS WITH YOUR NEW WEBHOOK
-    await fetch("PASTE_YOUR_NEW_WEBHOOK_HERE", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(data)
-    });
+    try {
 
-    // Save order for dashboard
-    let orders = JSON.parse(localStorage.getItem("orders")) || [];
+        await fetch("PASTE_YOUR_NEW_WEBHOOK_HERE", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
+        });
 
-    orders.push({
-        orderNumber,
-        customer: name,
-        discord,
-        orderType,
-        notes,
-        items: [...cart],
-        total,
-        status: "New"
-    });
+        // Save order for dashboard
+        let orders = JSON.parse(localStorage.getItem("orders")) || [];
 
-    localStorage.setItem("orders", JSON.stringify(orders));
+        orders.push({
+            orderNumber,
+            customer: name,
+            discord,
+            orderType,
+            notes,
+            items: [...cart],
+            total,
+            status: "New"
+        });
 
-    // Clear cart
-    localStorage.removeItem("cart");
+        localStorage.setItem("orders", JSON.stringify(orders));
 
-    alert("✅ Order Sent!");
+        // Clear cart
+        localStorage.removeItem("cart");
 
-    window.location.href = "success.html";
+        alert("✅ Order Sent!");
 
-};
+        window.location.href = "success.html";
+
+    } catch (error) {
+
+        console.error(error);
+
+        alert("Failed to send order.");
+
+    }
+
+});
