@@ -3,63 +3,97 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Burger Shot | Los Santos</title>
-
-    <meta name="description" content="Burger Shot - Serving Los Santos 24/7">
+    <title>Burger Shot | Fuel The Streets</title>
 
     <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
-    <!-- Icons -->
-    <link rel="stylesheet"
-href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
 
-<header>
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top shadow">
+    <div class="container">
 
-<div class="logo">
-🍔 BURGER SHOT
-</div>
+        <a class="navbar-brand fw-bold fs-3" href="#">
+            🍔 Burger Shot
+        </a>
 
-<nav>
+        <button class="navbar-toggler" type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarNav">
 
-<a href="index.html">Home</a>
+            <span class="navbar-toggler-icon"></span>
 
-<a href="menu.html">Menu</a>
+        </button>
 
-<a href="order.html">Order Online</a>
+        <div class="collapse navbar-collapse" id="navbarNav">
 
+            <ul class="navbar-nav ms-auto">
+
+                <li class="nav-item">
+                    <a class="nav-link active" href="#">Home</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="menu.html">Menu</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="order.html">Order</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Careers</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Contact</a>
+                </li>
+
+            </ul>
+
+        </div>
+
+    </div>
 </nav>
 
-</header>
+<!-- HERO -->
 
 <section class="hero">
 
-<div class="overlay">
+<div class="hero-overlay">
 
-<h1>Fuel The Streets.</h1>
+<h1>FUEL THE STREETS.</h1>
 
 <p>
-Serving Los Santos' favorite burgers 24/7.
-Fresh. Fast. Always Hot.
+
+Serving Los Santos 24/7
+
+Fresh Off The Grill
+
 </p>
 
-<div class="buttons">
+<div class="mt-4">
 
-<a href="menu.html" class="primary-btn">
-🍔 View Menu
+<a href="menu.html" class="btn btn-warning btn-lg me-3">
+
+🍔 VIEW MENU
+
 </a>
 
-<a href="order.html" class="secondary-btn">
-🛒 Order Now
+<a href="order.html" class="btn btn-outline-light btn-lg">
+
+🛒 ORDER NOW
+
 </a>
 
 </div>
@@ -68,37 +102,63 @@ Fresh. Fast. Always Hot.
 
 </section>
 
-<section class="featured">
+<!-- FEATURED -->
 
-<h2>Featured Favorites</h2>
+<section class="container py-5">
 
-<div class="cards">
+<h2 class="text-center mb-5">
 
-<div class="card">
+⭐ Featured Favorites
 
-<img src="images/burger.png">
+</h2>
 
-<h3>Classic Burger</h3>
+<div class="row">
+
+<div class="col-lg-4 mb-4">
+
+<div class="card bg-dark text-white h-100">
+
+<img src="images/burger.png" class="card-img-top">
+
+<div class="card-body">
+
+<h4>Classic Burger</h4>
 
 <p>$500</p>
 
 </div>
 
-<div class="card">
+</div>
 
-<img src="images/rootbeer.png">
+</div>
 
-<h3>Root Beer</h3>
+<div class="col-lg-4 mb-4">
+
+<div class="card bg-dark text-white h-100">
+
+<img src="images/rootbeer.png" class="card-img-top">
+
+<div class="card-body">
+
+<h4>Root Beer</h4>
 
 <p>$400</p>
 
 </div>
 
-<div class="card">
+</div>
 
-<img src="images/chocymilk.png">
+</div>
 
-<h3>Chocy Milk</h3>
+<div class="col-lg-4 mb-4">
+
+<div class="card bg-dark text-white h-100">
+
+<img src="images/chocymilk.png" class="card-img-top">
+
+<div class="card-body">
+
+<h4>Chocy Milk</h4>
 
 <p>$450</p>
 
@@ -106,13 +166,19 @@ Fresh. Fast. Always Hot.
 
 </div>
 
+</div>
+
+</div>
+
 </section>
 
-<footer>
+<footer class="bg-dark text-center text-white p-4">
 
-<p>© 2026 Burger Shot | Los Santos</p>
+© 2026 Burger Shot • Fuel The Streets
 
 </footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 </html>
