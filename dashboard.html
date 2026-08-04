@@ -1,30 +1,123 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Burger Shot Operations Center</title>
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Burger Shot Dashboard</title>
-
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css">
-
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body class="bg-dark text-white">
 
+<nav class="navbar navbar-dark bg-black">
+    <div class="container">
+
+        <a class="navbar-brand d-flex align-items-center" href="index.html">
+
+            <img src="images/burger-shot-logo.png"
+                 height="55"
+                 class="me-2">
+
+            Burger Shot Operations Center
+
+        </a>
+
+    </div>
+</nav>
+
 <div class="container py-5">
 
-<h1 class="text-center text-warning">
-🍔 Burger Shot Employee Dashboard
+<h1 class="text-warning mb-4">
+🍔 Manager Dashboard
 </h1>
 
-<p class="text-center">
-Manage incoming orders.
-</p>
+<div class="row g-4">
 
-<div id="orders"></div>
+<div class="col-md-3">
+
+<div class="card bg-black border-warning">
+
+<div class="card-body text-center">
+
+<h2 id="ordersCount">0</h2>
+
+<p>Orders</p>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-md-3">
+
+<div class="card bg-black border-warning">
+
+<div class="card-body text-center">
+
+<h2 id="applicationsCount">0</h2>
+
+<p>Applications</p>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-md-3">
+
+<div class="card bg-black border-warning">
+
+<div class="card-body text-center">
+
+<h2 id="messagesCount">0</h2>
+
+<p>Messages</p>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-md-3">
+
+<div class="card bg-black border-warning">
+
+<div class="card-body text-center">
+
+<h2 id="revenue">$0</h2>
+
+<p>Total Revenue</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<hr class="my-5">
+
+<h3>📦 Orders</h3>
+
+<div id="ordersList"></div>
+
+<hr class="my-5">
+
+<h3>👨‍💼 Applications</h3>
+
+<div id="applicationsList"></div>
+
+<hr class="my-5">
+
+<h3>📞 Contact Messages</h3>
+
+<div id="messagesList"></div>
 
 </div>
 
