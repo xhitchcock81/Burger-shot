@@ -115,7 +115,7 @@ document.getElementById("placeOrder").addEventListener("click", async () => {
 
     try {
 
-        // Replace this with your NEW Discord webhook
+        
         await fetch("https://discord.com/api/webhooks/1534161859052179559/TWVa5pffY3_gQLaPB46PauJsaX3ZY2TNmJ3SuT0cV7GKvcyo7gTQ76ZwvkqOH_IzHp--", {
             method: "POST",
             headers: {
