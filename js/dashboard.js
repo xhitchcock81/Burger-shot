@@ -1,95 +1,144 @@
-let orders = JSON.parse(localStorage.getItem("orders")) || [];
+// Burger Shot Dashboard
 
-const container = document.getElementById("orders");
+const orders =
+    JSON.parse(localStorage.getItem("orders")) || [];
 
-function renderOrders(){
+const applications =
+    JSON.parse(localStorage.getItem("applications")) || [];
 
-    container.innerHTML = "";
+const messages =
+    JSON.parse(localStorage.getItem("contactMessages")) || [];
 
-    if(orders.length===0){
+let revenue = 0;
 
-        container.innerHTML=`
-        <div class="alert alert-warning">
-        No active orders.
-        </div>
-        `;
+orders.forEach(order => {
+    revenue += Number(order.total || 0);
+});
 
-        return;
-    }
+// Dashboard Cards
 
-    orders.forEach((order,index)=>{
+document.getElementById("ordersCount").textContent =
+    orders.length;
 
-        let items="";
+document.getElementById("applicationsCount").textContent =
+    applications.length;
 
-        order.items.forEach(item=>{
+document.getElementById("messagesCount").textContent =
+    messages.length;
 
-            items+=`
-            <li>${item.name} x${item.quantity}</li>
-            `;
+document.getElementById("revenue").textContent =
+    "$" + revenue;
 
-        });
+// Orders
 
-        container.innerHTML+=`
+const ordersList =
+    document.getElementById("ordersList");
 
-        <div class="card bg-black text-white border-warning mb-4">
+if (orders.length === 0) {
 
-        <div class="card-body">
+    ordersList.innerHTML =
+        "<p>No orders yet.</p>";
 
-        <h4>🍔 ${order.orderNumber}</h4>
+} else {
 
-        <p><strong>Customer:</strong> ${order.customer}</p>
+    orders.forEach(order => {
 
-        <p><strong>Discord:</strong> ${order.discord}</p>
+        ordersList.innerHTML += `
 
-        <p><strong>Order Type:</strong> ${order.orderType}</p>
+<div class="card bg-black border-warning mb-3">
 
-        <ul>${items}</ul>
+<div class="card-body">
 
-        <h5>Status:
-        <span class="text-warning">${order.status}</span>
-        </h5>
+<h5>${order.orderNumber}</h5>
 
-        <button class="btn btn-warning"
-        onclick="nextStatus(${index})">
+<p><strong>Customer:</strong> ${order.customer}</p>
 
-        Next Status
+<p><strong>Type:</strong> ${order.orderType}</p>
 
-        </button>
+<p><strong>Total:</strong> $${order.total}</p>
 
-        </div>
+<p><strong>Status:</strong> ${order.status}</p>
 
-        </div>
+</div>
 
-        `;
+</div>
+
+`;
 
     });
 
 }
 
-function nextStatus(index){
+// Applications
 
-    if(orders[index].status==="New"){
+const applicationsList =
+    document.getElementById("applicationsList");
 
-        orders[index].status="Cooking";
+if (applications.length === 0) {
 
-    }
+    applicationsList.innerHTML =
+        "<p>No applications.</p>";
 
-    else if(orders[index].status==="Cooking"){
+} else {
 
-        orders[index].status="Ready";
+    applications.forEach(app => {
 
-    }
+        applicationsList.innerHTML += `
 
-    else if(orders[index].status==="Ready"){
+<div class="card bg-black border-warning mb-3">
 
-        orders[index].status="Completed";
+<div class="card-body">
 
-    }
+<h5>${app.applicationNumber}</h5>
 
-    localStorage.setItem("orders",JSON.stringify(orders));
+<p><strong>Name:</strong> ${app.rpName}</p>
 
-    renderOrders();
+<p><strong>Position:</strong> ${app.position}</p>
+
+<p><strong>Status:</strong> ${app.status}</p>
+
+</div>
+
+</div>
+
+`;
+
+    });
 
 }
 
-renderOrders();
+// Contact Messages
+
+const messagesList =
+    document.getElementById("messagesList");
+
+if (messages.length === 0) {
+
+    messagesList.innerHTML =
+        "<p>No messages.</p>";
+
+} else {
+
+    messages.forEach(msg => {
+
+        messagesList.innerHTML += `
+
+<div class="card bg-black border-warning mb-3">
+
+<div class="card-body">
+
+<h5>${msg.subject}</h5>
+
+<p><strong>Name:</strong> ${msg.name}</p>
+
+<p>${msg.message}</p>
+
+</div>
+
+</div>
+
+`;
+
+    });
+
+}
