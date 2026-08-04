@@ -4,37 +4,38 @@ const summary = document.getElementById("orderSummary");
 
 let total = 0;
 
-if(cart.length===0){
+if (cart.length === 0) {
 
-    summary.innerHTML="<p>Your cart is empty.</p>";
+    summary.innerHTML = "<p>Your cart is empty.</p>";
 
-}else{
+} else {
 
-    summary.innerHTML="";
+    summary.innerHTML = "";
 
-    cart.forEach(item=>{
+    cart.forEach(item => {
 
-        total += item.price*item.quantity;
+        total += item.price * item.quantity;
 
         summary.innerHTML += `
-        <p>
-            ${item.name}
-            x${item.quantity}
-            - $${item.price*item.quantity}
-        </p>
+            <p>
+                ${item.name} x${item.quantity}
+                - $${item.price * item.quantity}
+            </p>
         `;
 
     });
 
     summary.innerHTML += `
-    <hr>
-    <h4>Total: $${total}</h4>
+        <hr>
+        <h4>Total: $${total}</h4>
     `;
 
 }
 
 document.getElementById("placeOrder").onclick = async () => {
-const orderNumber = "BS-" + Date.now().toString().slice(-6);
+
+    const orderNumber = "BS-" + Date.now().toString().slice(-6);
+
     const name = document.getElementById("customerName").value;
     const discord = document.getElementById("discordName").value;
     const orderType = document.getElementById("orderType").value;
@@ -46,57 +47,56 @@ const orderNumber = "BS-" + Date.now().toString().slice(-6);
         items += `• ${item.name} x${item.quantity}\n`;
     });
 
-    const orderNumber = "BS-" + Math.floor(1000 + Math.random() * 9000);
+    const data = {
+        username: "Burger Shot POS",
+        embeds: [{
+            title: "🍔 BURGER SHOT ORDER",
+            description: "A new order has been placed.",
+            color: 0xF59E0B,
+            fields: [
+                {
+                    name: "📦 Order Number",
+                    value: orderNumber,
+                    inline: true
+                },
+                {
+                    name: "👤 Customer",
+                    value: name || "Unknown",
+                    inline: true
+                },
+                {
+                    name: "💬 Discord",
+                    value: discord || "Not Provided",
+                    inline: true
+                },
+                {
+                    name: "🚗 Order Type",
+                    value: orderType,
+                    inline: true
+                },
+                {
+                    name: "🍔 Items",
+                    value: items || "No items"
+                },
+                {
+                    name: "💰 Total",
+                    value: `$${total}`,
+                    inline: true
+                },
+                {
+                    name: "📝 Notes",
+                    value: notes || "None"
+                }
+            ],
+            footer: {
+                text: "Burger Shot • Fuel The Streets"
+            },
+            timestamp: new Date().toISOString()
+        }]
+    };
 
-const data = {
-    username: "Burger Shot POS",
-    embeds: [{
-        title: "🍔 BURGER SHOT ORDER",
-        description: "A new order has been placed.",
-        color: 0xF59E0B,
-        fields: [
-            {
-                name: "📦 Order Number",
-                value: orderNumber,
-                inline: true
-            },
-            {
-                name: "👤 Customer",
-                value: name || "Unknown",
-                inline: true
-            },
-            {
-                name: "💬 Discord",
-                value: discord || "Not Provided",
-                inline: true
-            },
-            {
-                name: "🚗 Order Type",
-                value: orderType,
-                inline: true
-            },
-            {
-                name: "🍔 Items",
-                value: items
-            },
-            {
-                name: "💰 Total",
-                value: `$${total}`,
-                inline: true
-            },
-            {
-                name: "📝 Notes",
-                value: notes || "None"
-            }
-        ],
-        footer: {
-            text: "Burger Shot • Fuel The Streets"
-        },
-        timestamp: new Date().toISOString()
-    }]
-};
-
-    await fetch("https://discord.com/api/webhooks/1534161859052179559/TWVa5pffY3_gQLaPB46PauJsaX3ZY2TNmJ3SuT0cV7GKvcyo7gTQ76ZwvkqOH_IzHp--", {
+    // REPLACE THIS WITH YOUR NEW WEBHOOK
+    await fetch("PASTE_YOUR_NEW_WEBHOOK_HERE", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -104,23 +104,27 @@ const data = {
         body: JSON.stringify(data)
     });
 
+    // Save order for dashboard
     let orders = JSON.parse(localStorage.getItem("orders")) || [];
 
-orders.push({
-    orderNumber,
-    customer: name,
-    discord,
-    orderType,
-    notes,
-    items: cart,
-    total,
-    status: "New"
-});
+    orders.push({
+        orderNumber,
+        customer: name,
+        discord,
+        orderType,
+        notes,
+        items: [...cart],
+        total,
+        status: "New"
+    });
 
-localStorage.setItem("orders", JSON.stringify(orders));
+    localStorage.setItem("orders", JSON.stringify(orders));
+
+    // Clear cart
     localStorage.removeItem("cart");
 
-    alert("Order Sent!");
+    alert("✅ Order Sent!");
 
-    window.location.href="success.html";
+    window.location.href = "success.html";
+
 };
