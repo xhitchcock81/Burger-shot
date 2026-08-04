@@ -1,15 +1,23 @@
-console.log("Burger Shot JS Loaded!");
+// Burger Shot Cart
+
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
 document.addEventListener("DOMContentLoaded", () => {
-
-    console.log("Page Loaded!");
 
     document.querySelectorAll(".add-cart").forEach(button => {
 
         button.addEventListener("click", () => {
 
-            alert("Working!");
+            const item = {
+                name: button.dataset.name,
+                price: parseInt(button.dataset.price)
+            };
 
+            cart.push(item);
+
+            localStorage.setItem("cart", JSON.stringify(cart));
+
+            alert(`${item.name} added to your cart!`);
         });
 
     });
