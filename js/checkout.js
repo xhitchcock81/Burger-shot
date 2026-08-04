@@ -104,6 +104,20 @@ const data = {
         body: JSON.stringify(data)
     });
 
+    let orders = JSON.parse(localStorage.getItem("orders")) || [];
+
+orders.push({
+    orderNumber,
+    customer: name,
+    discord,
+    orderType,
+    notes,
+    items: cart,
+    total,
+    status: "New"
+});
+
+localStorage.setItem("orders", JSON.stringify(orders));
     localStorage.removeItem("cart");
 
     alert("Order Sent!");
