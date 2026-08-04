@@ -1,6 +1,6 @@
 // Burger Shot Cart v2
 
-let cart = JSON.parse(localStorage.getItem("cart")) || [];
+let cart = [];
 
 
 function saveCart() {
