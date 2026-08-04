@@ -129,22 +129,24 @@ Currently Unavailable
 
     </div>
 
-    <div id="cartItems">
+    <div id="cartItems" class="mb-3">
+    <p class="text-muted">Your cart is empty.</p>
+</div>
 
-        <p>Your cart is empty.</p>
+<hr>
 
-    </div>
+<div class="d-flex justify-content-between mb-3">
+    <strong>Total</strong>
+    <strong>$<span id="cartTotal">0</span></strong>
+</div>
 
-    <hr>
+<a href="order.html" class="btn btn-success w-100 mb-2">
+    Proceed to Checkout
+</a>
 
-    <h4>
-        Total:
-        $<span id="cartTotal">0</span>
-    </h4>
-
-    <button class="btn btn-success w-100">
-        Checkout
-    </button>
+<button id="clearCart" class="btn btn-outline-danger w-100">
+    Clear Cart
+</button>
 
 </div>
 <script src="js/cart.js"></script>
