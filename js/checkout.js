@@ -1,12 +1,11 @@
 // Burger Shot Checkout
 
 const cart = JSON.parse(localStorage.getItem("cart")) || [];
-
 const summary = document.getElementById("orderSummary");
 
 let total = 0;
 
-// Build Order Summary
+// Display Order Summary
 if (cart.length === 0) {
 
     summary.innerHTML = `
@@ -21,27 +20,27 @@ if (cart.length === 0) {
 
     cart.forEach(item => {
 
-        total += item.price * item.quantity;
+        const itemTotal = item.price * item.quantity;
+        total += itemTotal;
 
         summary.innerHTML += `
             <div class="d-flex justify-content-between border-bottom py-2">
                 <span>${item.name} x${item.quantity}</span>
-                <strong>$${item.price * item.quantity}</strong>
+                <strong>$${itemTotal}</strong>
             </div>
         `;
 
     });
 
     summary.innerHTML += `
-        <div class="d-flex justify-content-between mt-3">
+        <hr>
+        <div class="d-flex justify-content-between">
             <h4>Total</h4>
             <h4>$${total}</h4>
         </div>
     `;
-
 }
 
-// Place Order
 document.getElementById("placeOrder").addEventListener("click", async () => {
 
     if (cart.length === 0) {
@@ -71,7 +70,6 @@ document.getElementById("placeOrder").addEventListener("click", async () => {
         username: "Burger Shot POS",
         embeds: [{
             title: "🍔 BURGER SHOT ORDER",
-            description: "A new order has been placed.",
             color: 0xF59E0B,
             fields: [
                 {
@@ -117,7 +115,8 @@ document.getElementById("placeOrder").addEventListener("click", async () => {
 
     try {
 
-        await fetch("PASTE_YOUR_NEW_WEBHOOK_HERE", {
+        // Replace this with your NEW Discord webhook
+        await fetch("PASTE_NEW_WEBHOOK_HERE", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -126,7 +125,7 @@ document.getElementById("placeOrder").addEventListener("click", async () => {
         });
 
         // Save order for dashboard
-        let orders = JSON.parse(localStorage.getItem("orders")) || [];
+        const orders = JSON.parse(localStorage.getItem("orders")) || [];
 
         orders.push({
             orderNumber,
@@ -134,7 +133,7 @@ document.getElementById("placeOrder").addEventListener("click", async () => {
             discord,
             orderType,
             notes,
-            items: [...cart],
+            items: cart,
             total,
             status: "New"
         });
@@ -144,15 +143,12 @@ document.getElementById("placeOrder").addEventListener("click", async () => {
         // Clear cart
         localStorage.removeItem("cart");
 
-        alert("✅ Order Sent!");
-
         window.location.href = "success.html";
 
-    } catch (error) {
+    } catch (err) {
 
-        console.error(error);
-
-        alert("Failed to send order.");
+        console.error(err);
+        alert("Failed to send order to Discord.");
 
     }
 
