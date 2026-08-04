@@ -1,21 +1,17 @@
-// Burger Shot Cart System
+console.log("Burger Shot JS Loaded!");
 
-let cart = JSON.parse(localStorage.getItem("cart")) || [];
+document.addEventListener("DOMContentLoaded", () => {
 
-document.querySelectorAll(".add-cart").forEach(button => {
+    console.log("Page Loaded!");
 
-    button.addEventListener("click", () => {
+    document.querySelectorAll(".add-cart").forEach(button => {
 
-        const item = {
-            name: button.dataset.name,
-            price: Number(button.dataset.price)
-        };
+        button.addEventListener("click", () => {
 
-        cart.push(item);
+            alert("Working!");
 
-        localStorage.setItem("cart", JSON.stringify(cart));
+        });
 
-        alert(`${item.name} added to your order!`);
     });
 
 });
