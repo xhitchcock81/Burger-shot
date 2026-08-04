@@ -1,1 +1,1 @@
-alert("Careers JS Loaded!");
+"https://discord.com/api/webhooks/1534297897892446468/3Fq7e3wPCygWPiy1ahVsmHk5aRqzKyF2CUHNqZ6BZpNuWJZ0T9ZeVxuYfaKOhxtXT31e"
